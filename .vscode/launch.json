@@ -1,0 +1,23 @@
+// .vscode/launch.json
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug TS with Paths",
+			"type": "node",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"runtimeArgs": [
+				"-r",
+				"ts-node/register",
+				"-r",
+				"tsconfig-paths/register"
+			],
+			"args": ["${workspaceFolder}/src/main.ts"],
+			"sourceMaps": true,
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"outFiles": ["${workspaceFolder}/dist/**/*.js"]
+		}
+	]
+}
