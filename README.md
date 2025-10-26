@@ -1,98 +1,152 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Practice NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Учебный проект на NestJS для практики разработки REST API с аутентификацией, ролевой системой и управлением постами.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Описание
 
-## Description
+Это приложение представляет собой backend API с следующим функционалом:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Аутентификация и авторизация** - регистрация, вход с использованием JWT токенов
+- **Управление пользователями** - создание, получение списка, назначение ролей, блокировка
+- **Ролевая система** - разграничение доступа на основе ролей (Admin, User и т.д.)
+- **Посты** - создание постов с возможностью загрузки изображений
 
-## Project setup
+## Технологический стек
 
-```bash
-$ npm install
-```
+- **NestJS** - фреймворк для построения серверных приложений
+- **TypeScript** - типизированный JavaScript
+- **PostgreSQL** - реляционная база данных
+- **Sequelize** - ORM для работы с БД
+- **JWT** - для аутентификации
+- **bcryptjs** - для хеширования паролей
+- **Swagger** - документация API
+- **class-validator & class-transformer** - валидация данных
 
-## Compile and run the project
+## API Endpoints
 
-```bash
-# development
-$ npm run start
+### Аутентификация
+- `POST /auth/registration` - регистрация нового пользователя
+- `POST /auth/login` - вход в систему
 
-# watch mode
-$ npm run start:dev
+### Пользователи
+- `GET /users` - получить список всех пользователей
+- `POST /users` - создать пользователя
+- `POST /users/role` - назначить роль пользователю
+- `POST /users/ban` - заблокировать пользователя (только для Admin)
 
-# production mode
-$ npm run start:prod
-```
+### Посты
+- `POST /posts` - создать пост
 
-## Run tests
+## Установка и запуск
 
-```bash
-# unit tests
-$ npm run test
+### Требования
+- Node.js (v18+)
+- PostgreSQL
+- npm или yarn
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Установка зависимостей
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Настройка окружения
 
-## Resources
+Создайте файлы конфигурации для разных окружений:
 
-Check out a few resources that may come in handy when working with NestJS:
+**.development.env**
+```env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=practice_nest_dev
+PRIVATE_KEY=your_jwt_secret_key
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**.production.env**
+```env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=practice_nest_prod
+PRIVATE_KEY=your_jwt_secret_key
+```
 
-## Support
+### Запуск приложения
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# режим разработки
+npm run start:dev
 
-## Stay in touch
+# режим отладки
+npm run start:debug
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# production режим
+npm run start:prod
+```
 
-## License
+Приложение будет доступно по адресу `http://localhost:3000`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Swagger документация
+
+После запуска приложения документация API доступна по адресу:
+```
+http://localhost:3000/api/docs
+```
+
+## Структура проекта
+
+```
+src/
+├── auth/           # Модуль аутентификации
+├── posts/          # Модуль постов
+├── roles/          # Модуль ролей
+├── users/          # Модуль пользователей
+├── pipes/          # Кастомные пайпы (валидация)
+├── app.module.ts   # Корневой модуль приложения
+└── main.ts         # Точка входа
+```
+
+## Дополнительные команды
+
+```bash
+# форматирование кода
+npm run format
+
+# линтинг
+npm run lint
+
+# сборка проекта
+npm run build
+```
+
+## Модели данных
+
+### User
+- id
+- email
+- password
+- banned (boolean)
+- banReason (string)
+- roles (связь many-to-many)
+- posts (связь one-to-many)
+
+### Role
+- id
+- value (например: "Admin", "User")
+- description
+- users (связь many-to-many)
+
+### Post
+- id
+- title
+- content
+- image (путь к файлу)
+- userId (внешний ключ)
+- author (связь с User)
+
+## Лицензия
+
+UNLICENSED - частный учебный проект
