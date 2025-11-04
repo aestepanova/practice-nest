@@ -1,13 +1,21 @@
-import { Body, Controller, Post, UploadedFile } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Post,
+	UploadedFile,
+	UseInterceptors,
+} from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
+import { FileInterceptor } from '@nestjs/platform-express'
 
 @Controller('posts')
 export class PostsController {
 	constructor(private postService: PostsService) {}
 
 	@Post()
-	create(@Body() dto: CreatePostDto, @UploadedFile() image): any {
+	@UseInterceptors(FileInterceptor('image'))
+	createPost(@Body() dto: CreatePostDto, @UploadedFile() image): any {
 		return this.postService.create(dto, image)
 	}
 }
